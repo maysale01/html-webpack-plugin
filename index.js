@@ -448,17 +448,15 @@ HtmlWebpackPlugin.prototype.htmlWebpackPluginAssets = function (compilation, chu
  * Injects the assets into the given html string
  */
 HtmlWebpackPlugin.prototype.injectAssetsIntoHtml = function (html, assets) {
-
   var scripts;
 
-  // Turn script files into iffys that use 'path' for relative pathing
   if (this.options.electron) {
+    // Turn script files into iffys that use 'path' for relative pathing
     scripts = assets.js.map(function (scriptPath) {
       return "(function() { var script = document.createElement('script'); script.src = require('path').join(__dirname, '" + scriptPath + "');document.write(script.outerHTML);}());";
     });
-  }
-  // Turn script files into script tags
-  else {
+  } else {
+    // Turn script files into script tags
     scripts = assets.js.map(function (scriptPath) {
       return '<script type="text/javascript" src="' + scriptPath + '"></script>';
     });
